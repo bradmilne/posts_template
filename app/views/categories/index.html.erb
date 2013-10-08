@@ -1,0 +1,5 @@
+<h3>All Categories</h3>
+
+<% @categories.each do |cat| %>
+  <p><%= link_to cat.name, category_path(cat) %> [<%= link_to 'edit category', edit_category_path(cat) %>]</p><br />
+<% end %>

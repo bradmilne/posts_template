@@ -1,3 +1,27 @@
-<h4><%= @post.title %></h4>
-
+<h4>Showing Post</h4>
+<br />
+Title: <%= @post.title %>
+</br>
 URL: <%= @post.url %>
+<br />
+Description: <%= @post.description %>
+<br />
+<%= link_to 'Edit Post', edit_post_path(@post) %>
+<br />
+
+
+<h5>Comments:</h5>
+
+<%= render 'shared/errors', obj: @comment %>
+<%= form_for [@post, @comment] do |f| %>
+	<%= f.text_area :body %>
+	<br />
+	<%= f.submit "Create Comment" %>
+<% end %>
+
+<ul>
+<% @post.comments.each do |comment| %>
+  <li><%= comment.body %></li>
+<% end %>
+</ul>
+

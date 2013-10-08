@@ -1,0 +1,17 @@
+<%= render 'shared/errors', obj: @post %>
+
+<%= form_for @post do |f| %>
+	<%= f.label :title %>
+	<%= f.text_field :title %>
+	<br />
+	<%= f.label :url %>
+	<%= f.text_field :url %>
+	<br />
+	<%= f.label :description %>
+	<%= f.text_area :description %>
+	<br />
+	<p>Choose Category</p>
+  <%= select_tag(:category_id, options_from_collection_for_select(@categories, 'id', 'name'), :prompt => "No Category Selected") %>
+  <br />
+	<%= f.submit "Create post", class: 'btn btn-primary' %>
+<% end %>

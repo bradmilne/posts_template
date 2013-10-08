@@ -6,4 +6,10 @@ class Post < ActiveRecord::Base
 
   has_many :post_categories
   has_many :categories, through: :post_categories
+
+  validates :title, presence: true
+  validates :url, presence: true
+  validates :description, presence: true
+
+  accepts_nested_attributes_for :categories, :post_categories
 end
