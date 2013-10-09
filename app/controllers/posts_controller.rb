@@ -10,9 +10,13 @@ class PostsController < ApplicationController
 
   def create
   	@post = Post.new(post_params)
-    @post_category = @post.post_categories.build(post_params)
-    binding.pry
+ 
     if @post.save
+      binding.pry
+
+      params[:post][:category_ids].each do |f|
+        PostCategory.create(post_id: @post.id, category_id: f)
+      end
       flash[:notice] = "Your post was saved."
       redirect_to posts_path
     else
@@ -41,10 +45,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :url, :description, post_categories_attributes: [:post_id, :category_id])
+    params.require(:post).permit(:title, :url, :description, category_ids: [])
   end
 
-  def post_category_params
-    params.require(:category).merge(:category_id, post_id: @post.id)
-  end 
 end

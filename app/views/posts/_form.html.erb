@@ -10,8 +10,12 @@
 	<%= f.label :description %>
 	<%= f.text_area :description %>
 	<br />
-	<p>Choose Category</p>
-  <%= select_tag(:category_id, options_from_collection_for_select(@categories, 'id', 'name'), :prompt => "No Category Selected") %>
+  <%= f.label "Categories" %>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |cb|%>
+    <% cb.label(class: "checkbox inline") {cb.check_box(class: "checkbox") + cb.text} %>
+  <% end %>
+  <br />
   <br />
 	<%= f.submit "Create post", class: 'btn btn-primary' %>
+	<br />
 <% end %>

@@ -8,6 +8,9 @@ Description: <%= @post.description %>
 <br />
 <%= link_to 'Edit Post', edit_post_path(@post) %>
 <br />
+Categories: <% @post.categories.each do |cat| %>
+              <%= cat.name %>
+            <% end %>
 
 
 <h5>Comments:</h5>
