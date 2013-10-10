@@ -12,10 +12,10 @@ class PostsController < ApplicationController
   	@post = Post.new(post_params)
  
     if @post.save
-      binding.pry
-
       params[:post][:category_ids].each do |f|
-        PostCategory.create(post_id: @post.id, category_id: f)
+        unless f = ""
+         PostCategory.create(post_id: @post.id, category_id: f)
+       end
       end
       flash[:notice] = "Your post was saved."
       redirect_to posts_path
