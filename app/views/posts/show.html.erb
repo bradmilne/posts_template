@@ -1,6 +1,6 @@
 <h4>Showing Post</h4>
 <br />
-Title: <%= @post.title %>
+Title: <%= link_to @post.title, fix_url(@post.url) %>
 </br>
 URL: <%= @post.url %>
 <br />
