@@ -23,7 +23,7 @@ Categories: <% @post.categories.each do |cat| %>
 <% end %>
 
 <ul>
-<% @post.comments.each do |comment| %>
+<% @post.reload.comments.each do |comment| %>
   <li><%= comment.body %></li>
 <% end %>
 </ul>
