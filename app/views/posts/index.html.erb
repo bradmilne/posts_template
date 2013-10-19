@@ -1,7 +1,7 @@
 <h3>All Posts</h3>
 
 <% @posts.each do |post| %>
-  <p><%= link_to post.title, post_path(post) %> [<%= link_to 'edit post', edit_post_path(post) %>]</p>
+  <p><%= link_to post.title, post_path(post) %> <% if logged_in? %>[<%= link_to 'edit post', edit_post_path(post) %>]<% end %></p>
   Created at <%= display_datetime(post.created_at) %>
   <br /><br />
 <% end %>
