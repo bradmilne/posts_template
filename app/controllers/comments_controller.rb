@@ -18,4 +18,14 @@ before_action :require_user
   	params.require(:comment).permit(:body)
   end
 
+  def vote
+    post = Post.find_by(slug: params[:id])  
+    comment = Comment.find(params[:id])
+    Vote.create(voteable: comment, creator: current_user, vote: params[:vote])
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Your vote was counted" }
+        format.js   {}
+      end
+  end
+
 end
