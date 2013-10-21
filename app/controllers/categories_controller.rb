@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
 
+
+  before_action :set_category, only: [:show, :edit, :update] 
   before_action :require_user, except: [:index, :show]
   before_action :require_admin, only: [:create]
 
@@ -22,12 +24,10 @@ class CategoriesController < ApplicationController
     end
   end
 
-   def edit
-    @category = Category.find(params[:id])
+  def edit
   end
 
   def update
-    @category = Category.find(params[:id])
 
     if @category.update(post_params)
       flash[:notice] = "Your category was edited."
@@ -39,12 +39,17 @@ class CategoriesController < ApplicationController
 
 
   def show
-    @category = Category.find(params[:id])
   end
 
   def post_params
     params.require(:category).permit(:name)
   end
+
+  private
+
+  def set_category
+    @category = Category.find_by(slug: params[:id])  
+  end  
 
 
 end

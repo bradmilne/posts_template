@@ -1,0 +1,11 @@
+<h4><%= @user.username %></h4>
+<p><%= link_to 'Edit User', edit_user_path(@user) %></p>
+
+<p>All posts by <%= @user.username %> </p>
+<ul>
+	<% @user.posts.all.each do |post| %>
+	<li>
+		<%= post.title %>
+	</li>
+	<% end %>
+</ul>

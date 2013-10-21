@@ -11,6 +11,9 @@
 
   <% if logged_in? %>
    <li>
+    <%= link_to current_user.username, user_path(current_user) %>
+   </li>
+   <li>
     <%= link_to 'logout', logout_path %>
    </li>
   <% else %>

@@ -20,8 +20,8 @@ before_action :require_user
 
   def vote
     post = Post.find_by(slug: params[:id])  
-    comment = Comment.find(params[:id])
-    Vote.create(voteable: comment, creator: current_user, vote: params[:vote])
+    @comment = Comment.find(params[:id])
+    Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
       respond_to do |format|
         format.html { redirect_to :back, notice: "Your vote was counted" }
         format.js   {}
