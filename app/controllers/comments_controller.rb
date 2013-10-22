@@ -3,9 +3,10 @@ class CommentsController < ApplicationController
 before_action :require_user
 
   def create
-  	@post = Post.find(params[:post_id])
+  	@post = Post.find_by(slug: params[:post_id])
   	@comment = @post.comments.new(comment_params)
   	@comment.creator = current_user
+    binding.pry
   	if @comment.save
   		flash[:notice] = "Your comment was created"
   		redirect_to post_path(@post)
@@ -19,7 +20,7 @@ before_action :require_user
   end
 
   def vote
-    post = Post.find_by(slug: params[:id])  
+    post = Post.find_by(slug: params[:post_id])  
     @comment = Comment.find(params[:id])
     Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
       respond_to do |format|

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :not_yet_voted
 
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -29,4 +29,14 @@ class ApplicationController < ActionController::Base
     flash[:error] = "You can't do that"
     redirect_to root_path
   end
+
+  def not_yet_voted(voteable_object)
+    true unless voteable_object.votes.where(user_id: current_user.id).size != 0
+  end
+
+  def admin_or_current_user
+    access_denied unless logged_in? || current_user.admin?  
+  end
+
+
 end

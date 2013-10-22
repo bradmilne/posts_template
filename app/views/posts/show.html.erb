@@ -30,7 +30,7 @@ Categories: <% @post.categories.each do |cat| %>
 <% @post.reload.comments.each do |comment| %>
 <div class="row">
 <div class="span0 well text-center">
-		<% if logged_in? %>
+		<% if logged_in? && not_yet_voted(comment) %>
 
 		  <%= link_to vote_post_comment_path(@post, comment, vote: 'true'), remote: true, method: 'post' do %>
 		    <i class="icon-arrow-up"></i>
@@ -41,7 +41,7 @@ Categories: <% @post.categories.each do |cat| %>
 		<span id='<%="comment_#{comment.id}_votes" %>'><%= comment.total_votes %></span> votes
 		<br />
 
-		<% if logged_in? %>
+		<% if logged_in? && not_yet_voted(comment) %>
 		   <%= link_to vote_post_comment_path(@post, comment, vote: 'false'), remote: true, method: 'post' do %>
 		    <i class="icon-arrow-down"></i></i>
 		  <% end %>

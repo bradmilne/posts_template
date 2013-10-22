@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update] 
+  before_action :require_admin, only: [:index]
+  before_action :admin_or_current_user, only: [:edit, :update]
+  
  
   def new
     @user = User.new
@@ -17,10 +20,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    @users = User.all
+  end
+
   def edit
   end
 
   def update
+    if @user.update(user_params)
+      flash[:notice] = "User has been was updated."
+      redirect_to user_path(@user)
+    else
+      render :edit
+    end
   end
 
   def show
