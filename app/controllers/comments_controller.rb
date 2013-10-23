@@ -6,7 +6,6 @@ before_action :require_user
   	@post = Post.find_by(slug: params[:post_id])
   	@comment = @post.comments.new(comment_params)
   	@comment.creator = current_user
-    binding.pry
   	if @comment.save
   		flash[:notice] = "Your comment was created"
   		redirect_to post_path(@post)
