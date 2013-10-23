@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :update] 
   before_action :require_admin, only: [:index]
-  before_action :admin_or_current_user, only: [:edit, :update]
+  before_action :logged_in_or_admin?, only: [:edit, :update]
   
  
   def new

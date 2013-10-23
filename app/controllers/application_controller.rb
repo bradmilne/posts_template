@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 
-  helper_method :current_user, :logged_in?, :admin_or_current_user, :not_yet_voted
+  helper_method :current_user, :logged_in?, :not_yet_voted, :logged_in_or_admin?
 
   def current_user
   	@current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -34,9 +34,15 @@ class ApplicationController < ActionController::Base
     true unless voteable_object.votes.where(user_id: current_user.id).size != 0
   end
 
-  def admin_or_current_user
-    access_denied unless logged_in? || current_user.admin?  
+  def admin
+    !!current_user.admin?
   end
+
+  def logged_in_or_admin?
+    !!logged_in? || !!admin?
+  end
+
+
 
 
 end

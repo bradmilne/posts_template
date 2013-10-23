@@ -1,5 +1,9 @@
 <h3>All Categories</h3>
 
+<% if current_user.admin? %>
+  <p><%= link_to "Create category", new_category_path %></p>
+<% end %>
+
 <% @categories.each do |cat| %>
   <p><%= link_to cat.name, category_path(cat) %>
   	 <% if logged_in? %> 

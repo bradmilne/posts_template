@@ -1,5 +1,9 @@
 <h3>All Posts</h3>
 
+<% if logged_in? %>
+  <p><%= link_to "Create new post", new_post_path %></p>
+<% end %>
+
 <% @posts.each do |post| %>
   <%= render 'post', post: post %>
   <br /><br />

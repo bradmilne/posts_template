@@ -1,6 +1,6 @@
 <h4><%= @user.username %></h4>
 
-<% if  current_user.admin_or_current_user? %>
+<% if logged_in_or_admin? %>
   <p><%= link_to 'Edit User', edit_user_path(@user) %></p>
 <% end %>
 
