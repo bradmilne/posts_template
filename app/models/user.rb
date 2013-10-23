@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
   	self.role == 'moderator'
   end
 
+  def admin_or_current_user
+    self.logged_in? || current_user.admin?  
+  end
+
   def generate_slug
     self.slug = self.username.gsub(' ', '-').downcase
   end
